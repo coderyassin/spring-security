@@ -18,7 +18,7 @@ public class MainController {
         return "profile/index";
     }
 
-    @GetMapping("management")
+    @GetMapping("manage")
     public String management(){
         return "management/index";
     }
