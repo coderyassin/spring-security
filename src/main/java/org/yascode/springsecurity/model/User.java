@@ -1,10 +1,19 @@
 package org.yascode.springsecurity.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class User {
 
     @Id
@@ -32,7 +41,7 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns ={ @JoinColumn(name = "role_id")}
     )
-    private Set<Role> roles;
+    private List<Role> roles;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -40,5 +49,5 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns ={ @JoinColumn(name = "authorities_id")}
     )
-    private Set<Authorities> authorities;
+    private List<Authorities> authorities;
 }
