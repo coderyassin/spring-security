@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -41,7 +42,7 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns ={ @JoinColumn(name = "role_id")}
     )
-    private List<Role> roles;
+    private List<Role> roles = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -49,5 +50,5 @@ public class User {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns ={ @JoinColumn(name = "authorities_id")}
     )
-    private List<Authorities> authorities;
+    private List<Authorities> authorities = new ArrayList<>();
 }
