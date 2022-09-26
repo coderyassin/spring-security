@@ -33,7 +33,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/basic/myBasic").hasAuthority("ACCESS_BASIC1")
                 .antMatchers("/api/basic/allBasic").hasAuthority("ACCESS_BASIC2")
                 .and()
-                .httpBasic();
+                .formLogin()
+                .loginPage("/api/login").permitAll();
     }
 
     @Bean
