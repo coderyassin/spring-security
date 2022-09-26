@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class UserPrincipal implements UserDetails {
@@ -16,15 +17,11 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        this.user.getAuthorities().forEach(p -> {
-            GrantedAuthority authority = new SimpleGrantedAuthority(p.getAuthorityName());
-            authorities.add(authority);
-        });
-        /*this.user.getRoles().forEach(p -> {
-            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + p.getRoleName());
-            authorities.add(authority);
-        });*/
+
+        List<GrantedAuthority> authorities = this.user.getAuthorities()
+                                                        .stream().map(p -> new SimpleGrantedAuthority(p.getAuthorityName()))
+                                                        .collect(Collectors.toList());
+
         return authorities;
     }
 
